@@ -7,7 +7,7 @@ from ship import Ship
 from alien import Alien
 
 
-# TODO: Continue from pg. 269
+# TODO: Continue from pg. 278
 def run_game():
     pygame.init()
     ai_settings = Settings()
@@ -17,13 +17,16 @@ def run_game():
     pygame.display.set_caption('Alien Invasion')
     ship = Ship(ai_settings, screen)
     bullets = pygame.sprite.Group()
-    alien = Alien(ai_settings, screen)
+    aliens = pygame.sprite.Group()
+    gf.create_fleet(ai_settings, screen, ship, aliens)
+    # alien = Alien(ai_settings, screen)
 
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, alien, bullets)
+        gf.update_aliens(aliens)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 if __name__ == '__main__':
