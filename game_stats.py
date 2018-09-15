@@ -24,16 +24,9 @@ class GameStats:
         try:
             with open('score_data.json', 'r') as file:
                 self.high_score = int(json.load(file))    # Cast to int to verify type
-        except FileNotFoundError:
-            self.high_score = 0     # No high score yet, probably first time running
-        except ValueError:
-            print('Invalid score data found in json file')
-            print('Setting high score to default value')
-            self.high_score = 0     # File may have been corrupted or tampered with
-        except EOFError:
-            print('Empty score data file')
-            print('Setting high score to default value')
-            self.high_score = 0     # File contents were deleted somehow
+        except (FileNotFoundError, ValueError, EOFError, json.JSONDecodeError) as e:
+            print(e)
+            self.high_score = 0     # Some issue with the file, going to default
 
     def save_high_score(self):
         """Save the high score to a json file on disk"""
