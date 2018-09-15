@@ -10,7 +10,7 @@ class Settings:
         self.screen_width = int(current_display.current_w / 2)
         self.screen_height = int(current_display.current_h / 1.5)
         self.stars_limit = 4
-        print(self.screen_width, self.screen_height)
+        print('Automatic screen resolution: ' + str(self.screen_width) + ' ' + str(self.screen_height))
         self.bg_color = (0, 0, 0)
         # ship settings
         self.ship_speed_factor = None

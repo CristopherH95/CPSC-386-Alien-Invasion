@@ -6,7 +6,7 @@ class Beam(pygame.sprite.Sprite):
     def __init__(self, ai_settings, screen, alien):
         super().__init__()
         self.screen = screen
-        self.image = pygame.image.load('images/alien_beam.png')
+        self.image = pygame.image.load('images/alien_beam_resized.png')
         self.rect = self.image.get_rect()
         self.rect.centerx = alien.rect.centerx
         self.rect.top = alien.rect.bottom

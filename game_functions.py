@@ -79,6 +79,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 
 
 def fire_random_beam(ai_settings, screen, aliens, beams):
+    """Fire a beam from a random alien in the fleet"""
     firing_alien = random.choice(aliens.sprites())
     if len(beams) < ai_settings.beams_allowed:
         new_beam = Beam(ai_settings, screen, firing_alien)
@@ -86,16 +87,20 @@ def fire_random_beam(ai_settings, screen, aliens, beams):
         beams.add(new_beam)
 
 
-def check_alien_bullet_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+def check_alien_bullet_collisions(ai_settings, screen, stats, sb, ship, aliens, beams, bullets):
+    """Check that any aliens have been hit, handle empty fleet condition"""
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, False)
     if collisions:
         for aliens in collisions.values():
-            ai_settings.death_channel.play(ai_settings.alien_death_sound)
+            for a in aliens:
+                ai_settings.death_channel.play(ai_settings.alien_death_sound)
+                a.begin_death()
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
         check_high_score(stats, sb)
     if len(aliens) == 0:
         # destroy all existing bullets and re-create fleet, increase speed
+        beams.empty()
         bullets.empty()
         ai_settings.increase_speed()
         stats.level += 1
@@ -104,6 +109,7 @@ def check_alien_bullet_collisions(ai_settings, screen, stats, sb, ship, aliens, 
 
 
 def check_ship_beam_collisions(ai_settings, screen, stats, sb, ship, aliens, beams, bullets):
+    """Check that any alien beams have collided with the ship"""
     collide = pygame.sprite.spritecollideany(ship, beams)
     if collide:
         ship_hit(ai_settings, screen, stats, sb, ship, aliens, beams, bullets)
@@ -120,7 +126,7 @@ def update_bullets_beams(ai_settings, screen, stats, sb, ship, aliens, beams, bu
     for beam in beams.copy():
         if beam.rect.bottom > ai_settings.screen_height:
             beams.remove(beam)
-    check_alien_bullet_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets)
+    check_alien_bullet_collisions(ai_settings, screen, stats, sb, ship, aliens, beams, bullets)
     check_ship_beam_collisions(ai_settings, screen, stats, sb, ship, aliens, beams, bullets)
 
 
@@ -247,6 +253,7 @@ def check_fleet_edges(ai_settings, aliens):
 
 
 def create_stars(ai_settings, screen):
+    """Create a sprite group of stars that are placed randomly in the background"""
     stars = pygame.sprite.Group()
     for i in range(ai_settings.stars_limit):
         new_star = Star(ai_settings, screen)
