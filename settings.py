@@ -6,8 +6,11 @@ class Settings:
     """Stores settings for Alien Invasion"""
     def __init__(self):
         # screen settings
-        self.screen_width = 800
-        self.screen_height = 600
+        current_display = display.Info()
+        self.screen_width = int(current_display.current_w / 2)
+        self.screen_height = int(current_display.current_h / 1.5)
+        self.stars_limit = 4
+        print(self.screen_width, self.screen_height)
         self.bg_color = (0, 0, 0)
         # ship settings
         self.ship_speed_factor = None
@@ -18,13 +21,21 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (255, 255, 255)
         self.bullets_allowed = 3
+        # beam settings
+        self.beam_speed_factor = None
+        self.beams_allowed = 1
         # sound settings
+        self.alien_death_sound = mixer.Sound('sound/alien_death.wav')
+        self.alien_fire_sound = mixer.Sound('sound/alien_shoot.wav')
         self.ship_fire_sound = mixer.Sound('sound/ship_shoot.wav')
         self.ship_death_sound = mixer.Sound('sound/ship_death.wav')
+        self.alien_death_sound.set_volume(0.3)
+        self.alien_fire_sound.set_volume(0.3)
         self.ship_fire_sound.set_volume(0.3)
         self.ship_death_sound.set_volume(0.5)
         self.audio_channels = 3
         self.ship_channel = mixer.Channel(0)
+        self.alien_channel = mixer.Channel(1)
         self.death_channel = mixer.Channel(2)
         # alien settings
         self.alien_speed_factor = None
@@ -41,6 +52,7 @@ class Settings:
         """Initialize that change while the game is active"""
         self.ship_speed_factor = 1.5
         self.bullet_speed_factor = 3
+        self.beam_speed_factor = 0.25
         self.alien_speed_factor = 0.25
         # scoring
         self.alien_points = 50
@@ -58,4 +70,3 @@ class Settings:
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
         self.alien_points = int(self.alien_points * self.score_scale)
-        print(self.alien_points)

@@ -1,4 +1,4 @@
-import pickle
+import json
 
 
 class GameStats:
@@ -20,14 +20,14 @@ class GameStats:
         self.level = 1
 
     def initialize_high_score(self):
-        """Read the saved high score from the pickle file on disk (if it exists)"""
+        """Read the saved high score from the json file on disk (if it exists)"""
         try:
-            with open('score_data.pkl', 'rb') as file:
-                self.high_score = int(pickle.load(file))    # Cast to int to verify type
+            with open('score_data.json', 'r') as file:
+                self.high_score = int(json.load(file))    # Cast to int to verify type
         except FileNotFoundError:
             self.high_score = 0     # No high score yet, probably first time running
         except ValueError:
-            print('Invalid score data found in pickle file')
+            print('Invalid score data found in json file')
             print('Setting high score to default value')
             self.high_score = 0     # File may have been corrupted or tampered with
         except EOFError:
@@ -36,6 +36,6 @@ class GameStats:
             self.high_score = 0     # File contents were deleted somehow
 
     def save_high_score(self):
-        """Save the high score to a pickle file on disk"""
-        with open('score_data.pkl', 'wb') as file:
-            pickle.dump(self.high_score, file)
+        """Save the high score to a json file on disk"""
+        with open('score_data.json', 'w') as file:
+            json.dump(self.high_score, file)

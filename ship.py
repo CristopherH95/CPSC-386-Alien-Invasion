@@ -1,4 +1,5 @@
 import pygame
+from time import sleep
 
 
 class Ship(pygame.sprite.Sprite):
@@ -9,6 +10,7 @@ class Ship(pygame.sprite.Sprite):
         self.ai_settings = ai_settings
         # Load ship image and set rect attributes
         self.image = pygame.image.load('images/ship_new.png')
+        self.image_death = pygame.image.load('images/ship_death_resized.png')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
@@ -32,6 +34,15 @@ class Ship(pygame.sprite.Sprite):
     def center_ship(self):
         """Center the ship on the screen"""
         self.center = self.screen_rect.centerx
+
+    def death(self):
+        """Switch ship to death image briefly and pause"""
+        original_img = self.image
+        self.image = self.image_death
+        self.blitme()
+        pygame.display.flip()
+        sleep(0.5)
+        self.image = original_img
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
