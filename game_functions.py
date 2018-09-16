@@ -218,7 +218,13 @@ def update_aliens(ai_settings, screen, stats, sb, ship, aliens, beams, bullets):
 
 def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Create an alien and place it in a row"""
-    alien = Alien(ai_settings, screen)
+    if row_number < 2:
+        alien_type = 3
+    elif row_number < 5:
+        alien_type = 2
+    else:
+        alien_type = 1
+    alien = Alien(ai_settings, screen, alien_type)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x

@@ -9,8 +9,8 @@ class Ship(pygame.sprite.Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         # Load ship image and set rect attributes
-        self.image = pygame.image.load('images/ship_new.png')
-        self.image_death = pygame.image.load('images/ship_death_resized.png')
+        self.image = pygame.image.load('images/ship.png')
+        self.image_death = pygame.image.load('images/ship_death.png')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx

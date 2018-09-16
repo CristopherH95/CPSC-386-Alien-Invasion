@@ -9,9 +9,9 @@ class Star(pygame.sprite.Sprite):
         super().__init__()
         self.screen = screen
         self.images = []
-        self.images.append(pygame.image.load('images/star/star1_new.png'))
-        self.images.append(pygame.image.load('images/star/star2_new.png'))
-        self.images.append(pygame.image.load('images/star/star3_new.png'))
+        self.images.append(pygame.image.load('images/star/star1_resized.png'))
+        self.images.append(pygame.image.load('images/star/star2_resized.png'))
+        self.images.append(pygame.image.load('images/star/star3_resized.png'))
         self.index = 0
         self.last_update = pygame.time.get_ticks()   # time check prevents animation from going too fast
         self.image = self.images[self.index]
