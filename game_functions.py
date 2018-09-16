@@ -220,7 +220,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Create an alien and place it in a row"""
     if row_number < 2:
         alien_type = 3
-    elif row_number < 5:
+    elif row_number < 4:
         alien_type = 2
     else:
         alien_type = 1

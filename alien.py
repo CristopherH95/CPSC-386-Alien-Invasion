@@ -90,7 +90,7 @@ class Alien(pygame.sprite.Sprite):
         if not self.dead:
             if abs(self.last_frame - time_test) > 1000:
                 self.last_frame = time_test
-                self.image_index = (self.image_index + 1) % len(self.images)
+                self.image_index = (self.image_index + 1) % len(self.images)   # Loop over frames
                 self.image = self.images[self.image_index]
         else:
             if abs(self.last_frame - time_test) > 20:   # At least 20 millisecond delay between frames
