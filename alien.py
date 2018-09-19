@@ -83,7 +83,7 @@ class Alien(pygame.sprite.Sprite):
         self.last_frame = pygame.time.get_ticks()
 
     def update(self):
-        """Move alien to the right or left"""
+        """Move alien to the right or left, play idle animations or death animations"""
         self.x += (self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction)
         self.rect.x = self.x
         time_test = pygame.time.get_ticks()

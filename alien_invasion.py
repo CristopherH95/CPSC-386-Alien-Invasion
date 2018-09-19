@@ -11,7 +11,7 @@ from ship import Ship
 
 def run_game():
     pygame.init()
-    ai_settings = Settings()
+    ai_settings = Settings()    # Setup pygame, settings, and display
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height)
     )
@@ -21,7 +21,7 @@ def run_game():
     # Setup game stats and scoreboard
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
-
+    # Setup ship, bullets, beams, aliens, background stars
     ship = Ship(ai_settings, screen)
     bullets = pygame.sprite.Group()
     beams = pygame.sprite.Group()
