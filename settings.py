@@ -57,7 +57,7 @@ class Settings:
         self.ship_speed_factor = 1.5
         self.bullet_speed_factor = 3
         self.beam_speed_factor = 0.25
-        self.alien_speed_factor = 0.5   # Alien speed at 1/2 to make initial levels a little easier
+        self.alien_speed_factor = 1
 
         # scoring
         self.alien_points = 50
